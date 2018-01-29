@@ -70,9 +70,15 @@ public class DetailActivity extends AppCompatActivity {
     private void populateUI(Sandwich sandwich) {
 
         mPlaceOfOriginTv.setText(sandwich.getPlaceOfOrigin());
-        mAlsoKnownTv.setText(android.text.TextUtils.join(", \n", sandwich.getAlsoKnownAs()));
+        // check for empty string and if so replace it with more helpful text (ie "Unknown")
+        if (sandwich.getAlsoKnownAs().isEmpty()) {
+            mAlsoKnownTv.setText("Unknown");
+        } else {
+            mAlsoKnownTv.setText(" - " + android.text.TextUtils.join("\n - ", sandwich.getAlsoKnownAs()));
+        }
         mDescriptionTv.setText(sandwich.getDescription());
-        mIngredients.setText(android.text.TextUtils.join(", \n", sandwich.getIngredients()));
+        // make ingredients look like a list by starting with a dash and forcing a new line after each string
+        mIngredients.setText(" - " + android.text.TextUtils.join("\n - ", sandwich.getIngredients()));
 
     }
 
